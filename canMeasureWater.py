@@ -14,6 +14,7 @@
 输入: x = 3, y = 5, z = 4
 输出: True
 '''
+import copy
 
 class Solution(object):
     def canMeasureWater(self, x, y, z):
@@ -28,12 +29,9 @@ class Solution(object):
         while True:
             ThisSituation = []
             for i in situation[-1]:
-                print i
                 a = self.EmptyA(i)
                 b = self.EmptyB(i)
                 c = self.FullA(x,i)
-                print i
-                print a
                 d = self.FullB(y,i)
                 e = self.PullAtoB(x,y,i)
                 f = self.PullBtoA(x,y,i)
@@ -60,42 +58,62 @@ class Solution(object):
             situation.append(ThisSituation)
             if ThisSituation==[]:
                 break
-        return situation
+
+        AllNumber=[]
+        for k in Allsituation:
+            if k[0] not in AllNumber:
+                AllNumber.append(k[0])
+            if k[1] not in AllNumber:
+                AllNumber.append(k[1])
+            if (k[0]+k[1]) not in AllNumber:
+                AllNumber.append((k[0]+k[1]))
+        for m in AllNumber:
+            if m==z:
+                return True
+        return False
 
     def EmptyA(self,situationNow):
-        situationNow[0] = 0
-        return situationNow
+        Nowsituation=copy.deepcopy(situationNow)
+        Nowsituation[0] = 0
+        return Nowsituation
 
     def EmptyB(self,situationNow):
-        situationNow[1]=0
-        return situationNow
+        Nowsituation = copy.deepcopy(situationNow)
+        Nowsituation[1] = 0
+        return Nowsituation
 
     def FullA(self,x,situationNow):
-        situationNow[0]=x
-        return situationNow
+        Nowsituation = copy.deepcopy(situationNow)
+        Nowsituation[0]=x
+        return Nowsituation
 
     def FullB(self,y,situationNow):
-        situationNow[1]=y
-        return situationNow
+        Nowsituation = copy.deepcopy(situationNow)
+        Nowsituation[1]=y
+        return Nowsituation
 
     def PullAtoB(self,x,y,situationNow):
-        AllWatre=situationNow[0]+situationNow[1]
-        situationNow[0]=0
-        if AllWatre>=x+y:
-            situationNow[1]=x+y
+        Nowsituation = copy.deepcopy(situationNow)
+        AllWatre=Nowsituation[0]+Nowsituation[1]
+        Nowsituation[0]=0
+        if AllWatre>=y:
+            Nowsituation[0]=AllWatre-y
+            Nowsituation[1]=y
         else:
-            situationNow[1]=AllWatre
-        return situationNow
+            Nowsituation[1]=AllWatre
+        return Nowsituation
 
     def PullBtoA(self,x,y,situationNow):
-        AllWatre = situationNow[0] + situationNow[1]
-        situationNow[1] = 0
-        if AllWatre >= x + y:
-            situationNow[0] = x + y
+        Nowsituation = copy.deepcopy(situationNow)
+        AllWatre = Nowsituation[0] + Nowsituation[1]
+        Nowsituation[1] = 0
+        if AllWatre >= x:
+            Nowsituation[0] = x
+            Nowsituation[1] = AllWatre - x
         else:
-            situationNow[0] = AllWatre
-        return situationNow
+            Nowsituation[0] = AllWatre
+        return Nowsituation
 
 if __name__== "__main__":
     My=Solution()
-    print My.canMeasureWater(3,5,4)
+    print My.canMeasureWater(1,2,4)
