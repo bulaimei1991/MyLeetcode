@@ -31,7 +31,6 @@ class Solution(object):
             if (NewMatrix[1]==8)&(NewMatrix[2]==8):
                 return Matrix
 
-
     def GetScale(self,i,j):
         if 0<=i<=2:
             Iscale=[0,2]
