@@ -80,6 +80,15 @@ def SimpleSelectionSort(A,left,right):
         A=SimpleSelectionSort(A,place[0]+1,right)
     return A
 
+def QuickSort(arrey):
+    if len(arrey)<=1:
+        return arrey
+    else:
+        FirstHalf=[i for i in arrey[1:] if i<arrey[0]]
+        LastHalf=[i for i in arrey[1:] if i>=arrey[0]]
+        return QuickSort(FirstHalf)+[arrey[0]]+QuickSort(LastHalf)
+
 if __name__ == '__main__':
-    unittest.main()
-    
+    #unittest.main()
+    A=[2,3,1,4,2]
+    print QuickSort(A)

@@ -86,6 +86,8 @@ class BinaryTree():
                 LayerQueue.append(j)
         return LayerQueue
 
+    
+
 Inode=BinaryTreeNode(9)
 Hnode=BinaryTreeNode(8)
 Gnode=BinaryTreeNode(7)

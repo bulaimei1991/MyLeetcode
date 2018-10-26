@@ -69,14 +69,44 @@ class Solution(object):
         :type M: List[List[int]]
         :rtype: int
         """
+        CrossNumber=0  #开始新循环的行数
+        AutolenM=len(M)-1  #M的动态总行数
+        NumberOfStudent=len(M)  #学生总数
 
+        while(CrossNumber<AutolenM):
+            import copy
+            M1=copy.deepcopy(M)
+            while(True):
+                M=self.FindAndCombine(M,NumberOfStudent,CrossNumber)
+                if M1==M:
+                    break
+                else:
+                    M1=copy.deepcopy(M)
+
+            AutolenM = len(M) - 1
+            CrossNumber=CrossNumber+1
 
         return len(M)
 
     #两个朋友圈合并
     def CombineTwoCycle(self,Cycle1,Cycle2):
-        pass
+        Cycle=[0 for i in range(len(Cycle1))]
+        for i in range(len(Cycle1)):
+            if (Cycle1[i] == 1) or (Cycle2[i] == 1):
+                Cycle[i] = 1
+        return Cycle
 
-M=[[1,0,0,1],[0,1,1,0],[0,1,1,1],[1,0,1,1]]
+    #找到一个朋友圈并合并
+    def FindAndCombine(self,M,NumberOfStudent,CrossNumber):
+        for i in range(0, NumberOfStudent):
+            for j in range(CrossNumber + 1, len(M)):
+                if (M[j][i] == 1) and (M[CrossNumber][i] == 1):
+                    cycle = self.CombineTwoCycle(M[CrossNumber], M[j])
+                    M[CrossNumber] = cycle
+                    del M[j]
+                    return M
+        return M
+
+M=[[1,1,0,0],[1,1,0,0],[0,0,1,1],[0,0,1,1]]
 A=Solution()
-print A.findCircleNum(M)
+print A.findCircleNum2(M)
