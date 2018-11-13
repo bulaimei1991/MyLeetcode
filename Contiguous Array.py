@@ -48,4 +48,8 @@ class Solution(object):
 
 
 A=Solution()
+<<<<<<< HEAD
 print A.findMaxLength([0,0,1,0,0,0,1,1])
+=======
+print A.findMaxLength([0,0,1,0,0,0,1,1])
+>>>>>>> b6b910af9a9cf57b5e7350b7f91d2136bec219d7
